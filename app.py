@@ -47,23 +47,33 @@ try:
 
     sleep(10)
 
-# Entrair as informações da planilha
+    # Carregar a planilha Excel
+    print("Carregar a planilha Excel...")
+    chamados = openpyxl.load_workbook('/home/andre/python/chamados.xlsx')
+    pag_chamados = chamados['chamado']  # Certifique-se de alterar o nome da planilha conforme necessário
 
-    chamados = openpyxl.load_workbook('./chamados.xlsx')
-    pag_chamados = chamados ['chamado']
+    # Iterar sobre as linhas da planilha
+    for linha in pag_chamados.iter_rows(min_row=2, values_only=True):
+        Assunto, Mensagem = linha
+        # Faça algo com os dados de cada linha, como preencher campos do formulário
+        # Exemplo:
+        assunto_input = driver.find_element(By.NAME, "subject")
+        assunto_input.send_keys(Assunto)
+        mensagem_input = driver.find_element(By.NAME, "message")
+        mensagem_input.send_keys(Mensagem)
+        sleep(2)
 
-    for linha in pag_chamados.iter_rows(min_row=2,values_only=True):
-        Assunto, Mensagem = linha 
+        # Esperar até que o botão de envio esteja visível e clicável
+        botao_enviar = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.ID, "recaptcha-submit"))
+        )
 
-    
-
-
-
-
-
+        # Clicar no botão de envio
+        botao_enviar.click()
 
 except Exception as e:
     print("Erro ao preencher os campos:", e)
 
 finally:
     driver.quit()  # Certifique-se de fechar o navegador após o uso
+
