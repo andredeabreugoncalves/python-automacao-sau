@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Envio de Chamado</title>
+    <style>
+        /* Estilos para o formulário */
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .success-message,
+        .error-message {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .success-message {
+            background-color: #dff0d8;
+            border: 1px solid #d0e9c6;
+            color: #3c763d;
+        }
+        .error-message {
+            background-color: #f2dede;
+            border: 1px solid #ebccd1;
+            color: #a94442;
+        }
+    </style>
+</head>
+<body>
+    <h1>Envio de Chamado</h1>
+    <form id="chamado-form" action="/submit" method="post">
+        <label for="assunto">Assunto:</label>
+        <input type="text" id="assunto" name="assunto" required><br>
+        <label for="mensagem">Mensagem:</label>
+        <textarea id="mensagem" name="mensagem" required></textarea><br>
+        <input type="submit" value="Enviar Chamado">
+    </form>
+
+    <!-- Mensagem de sucesso -->
+    <div id="success-message" class="success-message" style="display: none;">
+        Chamado enviado com sucesso!
+    </div>
+
+    <!-- Mensagem de erro -->
+    <div id="error-message" class="error-message" style="display: none;">
+        Erro ao enviar o chamado. Por favor, tente novamente.
+    </div>
+
+    <script>
+        // Exibir mensagem de sucesso após o envio do formulário
+        if (window.location.search.includes("success")) {
+            document.getElementById("success-message").style.display = "block";
+        }
+        // Exibir mensagem de erro após o envio do formulário
+        if (window.location.search.includes("error")) {
+            document.getElementById("error-message").style.display = "block";
+        }
+    </script>
+</body>
+</html>

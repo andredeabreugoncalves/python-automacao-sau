@@ -27,3 +27,12 @@ git branch -M main
 git push -u origin main
 
 ```
+
+# interface 
+
+```sh
+
+sudo apt-get install python3-tk
+pip install flask
+
+```
