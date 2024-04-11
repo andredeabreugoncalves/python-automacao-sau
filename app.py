@@ -7,7 +7,8 @@ from time import sleep
 import openpyxl
 
 # Configurando o caminho para o ChromeDriver
-chrome_driver_path = "/home/andre/.cache/selenium/chromedriver/linux64/123.0.6312.105/chromedriver"
+#chrome_driver_path = "/home/andre/.cache/selenium/chromedriver/linux64/123.0.6312.105/chromedriver"
+chrome_driver_path = "/usr/local/bin/chromedriver"
 
 # Configurando o serviço do ChromeDriver
 service = Service(chrome_driver_path)
