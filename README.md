@@ -24,7 +24,7 @@ sudo apt install google-chrome-stable
 
 ```sh
 git add .
-git commit -m "first commit"
+git commit -m "com interface"
 git branch -M main
 git push -u origin main
 
