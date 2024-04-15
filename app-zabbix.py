@@ -1,20 +1,26 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from time import sleep
 import openpyxl
 
+# Configurando as opções do Chrome para o modo headless
+chrome_options = Options()
+chrome_options.add_argument("--headless")  # Executar em modo headless
+chrome_options.add_argument("--no-sandbox")  # Necessário para o Linux
+chrome_options.add_argument("--disable-dev-shm-usage")  # Necessário para o Linux
+
 # Configurando o caminho para o ChromeDriver
 #chrome_driver_path = "/home/andre/.cache/selenium/chromedriver/linux64/123.0.6312.105/chromedriver"
-chrome_driver_path = "/usr/local/bin/chromedriver"
-
+chrome_driver_path = "./chromedriver"
 # Configurando o serviço do ChromeDriver
 service = Service(chrome_driver_path)
 
-# Inicializando o driver do Chrome
-driver = webdriver.Chrome(service=service)
+# Inicializando o driver do Chrome com as opções configuradas
+driver = webdriver.Chrome(service=service, options=chrome_options)
 
 # Definindo o tempo de espera implícito
 driver.implicitly_wait(10)
@@ -47,28 +53,25 @@ try:
     opcao_desejada.click()
 
     print("Preenchendo campo de mensagem...")
-    ramal_input = driver.find_element(By.NAME, "subject")
-    ramal_input.send_keys("{ALERT.SUBJECT}")
-
+    assunto_input = driver.find_element(By.NAME, "subject")
+    assunto_input.send_keys("{ALERT.SUBJECT}")
 
     print("Preenchendo campo de mensagem...")
-    ramal_input = driver.find_element(By.NAME, "message")
-    ramal_input.send_keys("{ALERT.MESSAGE}")
-
+    mensagem_input = driver.find_element(By.NAME, "message")
+    mensagem_input.send_keys("{ALERT.MESSAGE}")
 
     sleep(10)
 
-        # Esperar até que o botão de envio esteja visível e clicável
-        botao_enviar = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.ID, "recaptcha-submit"))
-        )
+    # Esperar até que o botão de envio esteja visível e clicável
+    botao_enviar = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.ID, "recaptcha-submit"))
+    )
 
-        # Clicar no botão de envio
-        botao_enviar.click()
+    # Clicar no botão de envio
+    botao_enviar.click()
 
 except Exception as e:
     print("Erro ao preencher os campos:", e)
 
 finally:
     driver.quit()  # Certifique-se de fechar o navegador após o uso
-
